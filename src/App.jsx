@@ -73,15 +73,21 @@ function App() {
         {boxes.map((box, index) => {
           if (box.parentIndex !== null) {
             const parentBox = boxes[box.parentIndex];
+            const x1 = parentBox.left + 64; // Center of parent box
+            const y1 = parentBox.top + 128; // Bottom of parent box
+            const x2 = box.left + 64; // Center of current box
+            const y2 = box.top; // Top of current box
+            const pathData = `M${x1},${y1} V${
+              y1 + (y2 - y1) / 2
+            } H${x2} V${y2}`;
             return (
-              <line
+              <path
                 key={index}
-                x1={parentBox.left + 64} // Center of parent box
-                y1={parentBox.top + 64} // Center of parent box
-                x2={box.left + 64} // Center of current box
-                y2={box.top + 64} // Center of current box
+                d={pathData}
                 stroke="black"
+                strokeWidth="2" // Increase stroke width
                 strokeDasharray="4"
+                fill="none"
               />
             );
           }
